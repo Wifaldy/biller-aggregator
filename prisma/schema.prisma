@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique @db.VarChar(100)
+  name      String   @db.VarChar(100)
+  roleId    Int      @map("role_id")
+  password  String   @db.VarChar(100)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+
+  role Role @relation(fields: [roleId], references: [id])
+
+  @@map("users")
+}
+
+model Role {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(100)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+
+  users User[]
+
+  @@map("roles")
+}
+
+model Operator {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(100)
+  minDigit  Int      @default(8) @map("min_digit")
+  maxDigit  Int      @default(20) @map("max_digit")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+
+  products        Product[]
+  prefixOperators PrefixOperator[]
+
+  @@map("operators")
+}
+
+model ProductType {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(100)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+
+  products Product[]
+
+  @@map("product_types")
+}
+
+model Product {
+  id                   Int      @id @default(autoincrement())
+  operatorId           Int      @map("operator_id")
+  productTypeId        Int      @map("product_type_id")
+  name                 String   @db.VarChar(100)
+  description          String   @db.VarChar(100)
+  code                 String   @unique @db.VarChar(100)
+  operationalTimeStart DateTime @map("operational_time_start") @db.Time()
+  operationalTimeEnd   DateTime @map("operational_time_end") @db.Time()
+  isProblem            Boolean  @default(false) @map("is_problem")
+  isEmpty              Boolean  @default(false) @map("is_empty")
+  createdAt            DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt            DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+
+  operator    Operator    @relation(fields: [operatorId], references: [id])
+  productType ProductType @relation(fields: [productTypeId], references: [id])
+
+  @@map("products")
+}
+
+model PrefixOperator {
+  id         Int      @id @default(autoincrement())
+  operatorId Int      @map("operator_id")
+  prefix     String   @db.VarChar(100)
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt  DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+
+  operator Operator @relation(fields: [operatorId], references: [id])
+
+  @@map("prefix_operators")
+}
