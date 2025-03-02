@@ -40,4 +40,31 @@ export class OperatorRepository
     }
     return references;
   }
+
+  async findOperatorWithPrefixOperators(id: number): Promise<IOperatorEntity> {
+    const operatorWithPrefixOperator =
+      await this.prismaService.operator.findUnique({
+        where: {
+          id,
+        },
+        include: {
+          prefixOperators: true,
+        },
+      });
+    return operatorWithPrefixOperator;
+  }
+
+  async findAllOperatorWithProducts(): Promise<IOperatorEntity[]> {
+    const operatorsWithProducts = await this.prismaService.operator.findMany({
+      include: {
+        prefixOperators: true,
+        products: {
+          include: {
+            productType: true,
+          },
+        },
+      },
+    });
+    return operatorsWithProducts;
+  }
 }

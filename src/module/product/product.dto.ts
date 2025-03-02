@@ -1,5 +1,9 @@
 import { formatTimeToUtc } from 'src/common/time.helper';
 import { IProductEntity } from 'src/model/product.model';
+import {
+  IProductTypeResponse,
+  ProductTypeDto,
+} from '../product-type/product-type.dto';
 
 export interface IProductResponse
   extends Pick<
@@ -8,6 +12,7 @@ export interface IProductResponse
   > {
   operationalTimeStart: string;
   operationalTimeEnd: string;
+  productType?: IProductTypeResponse;
 }
 
 export interface IProductCreate
@@ -52,6 +57,22 @@ export class ProductDto {
       isProblem: props.isProblem,
       operationalTimeStart,
       operationalTimeEnd,
+    };
+  }
+
+  static toDtoWithProductType(props: IProductEntity): IProductResponse {
+    const operationalTimeStart = formatTimeToUtc(props.operationalTimeStart);
+    const operationalTimeEnd = formatTimeToUtc(props.operationalTimeEnd);
+    return {
+      id: props.id,
+      code: props.code,
+      name: props.name,
+      description: props.description,
+      isEmpty: props.isEmpty,
+      isProblem: props.isProblem,
+      operationalTimeStart,
+      operationalTimeEnd,
+      productType: ProductTypeDto.toDto(props.productType),
     };
   }
 }

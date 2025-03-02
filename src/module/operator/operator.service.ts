@@ -20,6 +20,21 @@ export class OperatorService {
     return operators.map((operator) => OperatorDto.toDto(operator));
   }
 
+  async findOperatorWithPrefixOperators(
+    id: number,
+  ): Promise<IOperatorResponse> {
+    await this.findById(id);
+    const operator =
+      await this.operatorRepository.findOperatorWithPrefixOperators(id);
+    return OperatorDto.toDtoWithPrefixOperators(operator);
+  }
+
+  async findAllOperatorsWithProducts(): Promise<IOperatorResponse[]> {
+    const operators =
+      await this.operatorRepository.findAllOperatorWithProducts();
+    return operators.map((operator) => OperatorDto.toDtoWithProducts(operator));
+  }
+
   async create(operator: IOperatorCreate): Promise<IOperatorResponse> {
     const createdOperator = await this.operatorRepository.create(operator);
     return OperatorDto.toDto(createdOperator);

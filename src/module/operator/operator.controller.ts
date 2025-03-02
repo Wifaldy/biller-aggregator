@@ -31,6 +31,29 @@ export class OperatorController {
     return createBaseResponse(results);
   }
 
+  @Get('/prefix/:id')
+  async findOperatorWithPrefixOperator(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<BaseResponse<IOperatorResponse>> {
+    const validateOperator = await this.validationService.validate(
+      OperatorValidation.FIND_BY_ID,
+      id,
+    );
+    const result =
+      await this.operatorService.findOperatorWithPrefixOperators(
+        validateOperator,
+      );
+    return createBaseResponse(result);
+  }
+
+  @Get('/products')
+  async findAllOperatorsWithProducts(): Promise<
+    BaseResponse<IOperatorResponse[]>
+  > {
+    const result = await this.operatorService.findAllOperatorsWithProducts();
+    return createBaseResponse(result);
+  }
+
   @Post()
   async create(
     @Body() operator: IOperatorCreate,
