@@ -1,8 +1,8 @@
 import { IBaseRepository } from 'src/common/base.repository.interface';
-import { IOperatorEntity } from 'src/model/operator.model';
+import { IOperatorEntity } from 'src/entity/operator.entity';
 
 export interface IOperatorRepository extends IBaseRepository<IOperatorEntity> {
   checkOperatorReferences(id: number): Promise<boolean>;
-  findOperatorWithPrefixOperators(id: number): Promise<IOperatorEntity>;
-  findAllOperatorWithProducts(): Promise<IOperatorEntity[]>;
+  findAllWithPrefixOperators(id: number): Promise<IOperatorEntity>;
+  findAllWithProducts(): Promise<IOperatorEntity[]>;
 }

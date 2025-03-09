@@ -3,7 +3,7 @@ import { validateStartTimeAndEndTime } from 'src/common/time.helper';
 import { z } from 'zod';
 
 const ProductBaseScheme = z.object({
-  name: z.string().min(1).max(20).trim().toUpperCase(),
+  name: z.string().min(1).max(100).trim().toUpperCase(),
   operatorId: z.number().positive(),
   productTypeId: z.number().positive(),
   description: z.string().min(1).max(100).trim(),

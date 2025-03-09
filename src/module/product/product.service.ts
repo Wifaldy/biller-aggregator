@@ -1,6 +1,5 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { IRepository } from 'src/common/repository.types';
-import { ProductRepository } from './product.repository';
 import {
   IProductCreate,
   IProductResponse,
@@ -9,12 +8,13 @@ import {
 } from './product.dto';
 import { ProductTypeService } from '../product-type/product-type.service';
 import { OperatorService } from '../operator/operator.service';
+import { IProductRepository } from './product.repository.interface';
 
 @Injectable()
 export class ProductService {
   constructor(
     @Inject(IRepository.IProductRepository)
-    private productRepository: ProductRepository,
+    private productRepository: IProductRepository,
     private productTypeService: ProductTypeService,
     private operatorService: OperatorService,
   ) {}

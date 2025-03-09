@@ -1,4 +1,4 @@
-import { IProductTypeEntity } from 'src/model/product-type.model';
+import { IProductTypeEntity } from 'src/entity/product-type.entity';
 
 export interface IProductTypeCreate extends Pick<IProductTypeEntity, 'name'> {}
 

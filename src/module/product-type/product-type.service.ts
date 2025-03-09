@@ -1,17 +1,17 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { IRepository } from 'src/common/repository.types';
-import { ProductTypeRepository } from './product-type.repository';
 import {
   IProductTypeCreate,
   IProductTypeResponse,
   ProductTypeDto,
 } from './product-type.dto';
+import { IProductTypeRepository } from './product-type.repository.interface';
 
 @Injectable()
 export class ProductTypeService {
   constructor(
     @Inject(IRepository.IProductTypeRepository)
-    private productTypeRepository: ProductTypeRepository,
+    private productTypeRepository: IProductTypeRepository,
   ) {}
 
   async findAll(): Promise<IProductTypeResponse[]> {

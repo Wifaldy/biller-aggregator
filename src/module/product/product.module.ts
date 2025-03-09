@@ -16,5 +16,6 @@ import { OperatorModule } from '../operator/operator.module';
     },
   ],
   imports: [ProductTypeModule, OperatorModule],
+  exports: [ProductService],
 })
 export class ProductModule {}

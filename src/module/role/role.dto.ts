@@ -1,4 +1,4 @@
-import { IRoleEntity } from 'src/model/role.model';
+import { IRoleEntity } from 'src/entity/role.entity';
 
 export interface IRoleCreate extends Pick<IRoleEntity, 'name'> {}
 

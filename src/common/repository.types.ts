@@ -5,4 +5,7 @@ export const IRepository = {
   IProductTypeRepository: 'IProductTypeRepository',
   IProductRepository: 'IProductRepository',
   IPrefixOperatorRepository: 'IPrefixOperatorRepository',
+  IPricePlanRepository: 'IPricePlanRepository',
+  IPricePlanProductRepository: 'IPricePlanProductRepository',
+  IPartnerRepository: 'IPartnerRepository',
 };

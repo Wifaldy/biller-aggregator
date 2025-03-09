@@ -1,12 +1,13 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { IRoleCreate, IRoleResponse, IRoleUpdate, RoleDto } from './role.dto';
 import { IRepository } from 'src/common/repository.types';
-import { RoleRepository } from './role.repository';
+import { IRoleRepository } from './role.repository.interface';
 
 @Injectable()
 export class RoleService {
   constructor(
-    @Inject(IRepository.IRoleRepository) private roleRepository: RoleRepository,
+    @Inject(IRepository.IRoleRepository)
+    private roleRepository: IRoleRepository,
   ) {}
 
   async findAll(): Promise<IRoleResponse[]> {

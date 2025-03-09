@@ -1,8 +1,8 @@
-import { BaseRepository } from 'src/common/base.repository';
-import { IUserEntity } from 'src/model/user.model';
-import { IUserRepository } from './user.repository.interface';
 import { Injectable } from '@nestjs/common';
+import { BaseRepository } from 'src/common/base.repository';
 import { PrismaService } from 'src/common/prisma.service';
+import { IUserEntity } from 'src/entity/user.entity';
+import { IUserRepository } from './user.repository.interface';
 
 @Injectable()
 export class UserRepository

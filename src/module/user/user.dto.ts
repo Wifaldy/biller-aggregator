@@ -1,4 +1,4 @@
-import { IUserEntity } from 'src/model/user.model';
+import { IUserEntity } from 'src/entity/user.entity';
 
 export interface IUserRegister
   extends Pick<IUserEntity, 'username' | 'name' | 'password' | 'roleId'> {}

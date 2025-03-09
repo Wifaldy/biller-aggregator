@@ -1,5 +1,5 @@
 import { formatTimeToUtc } from 'src/common/time.helper';
-import { IProductEntity } from 'src/model/product.model';
+import { IProductEntity } from 'src/entity/product.entity';
 import {
   IProductTypeResponse,
   ProductTypeDto,

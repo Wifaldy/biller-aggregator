@@ -1,18 +1,18 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { IRepository } from 'src/common/repository.types';
-import { OperatorRepository } from './operator.repository';
 import {
   IOperatorCreate,
   IOperatorResponse,
   IOperatorUpdate,
   OperatorDto,
 } from './operator.dto';
+import { IOperatorRepository } from './operator.repository.interface';
 
 @Injectable()
 export class OperatorService {
   constructor(
     @Inject(IRepository.IOperatorRepository)
-    private operatorRepository: OperatorRepository,
+    private operatorRepository: IOperatorRepository,
   ) {}
 
   async findAll(): Promise<IOperatorResponse[]> {
@@ -20,18 +20,15 @@ export class OperatorService {
     return operators.map((operator) => OperatorDto.toDto(operator));
   }
 
-  async findOperatorWithPrefixOperators(
-    id: number,
-  ): Promise<IOperatorResponse> {
+  async findAllWithPrefixOperators(id: number): Promise<IOperatorResponse> {
     await this.findById(id);
     const operator =
-      await this.operatorRepository.findOperatorWithPrefixOperators(id);
+      await this.operatorRepository.findAllWithPrefixOperators(id);
     return OperatorDto.toDtoWithPrefixOperators(operator);
   }
 
   async findAllOperatorsWithProducts(): Promise<IOperatorResponse[]> {
-    const operators =
-      await this.operatorRepository.findAllOperatorWithProducts();
+    const operators = await this.operatorRepository.findAllWithProducts();
     return operators.map((operator) => OperatorDto.toDtoWithProducts(operator));
   }
 

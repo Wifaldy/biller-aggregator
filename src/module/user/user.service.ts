@@ -2,13 +2,14 @@ import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { IUserRegister, IUserResponse, IUserUpdate, UserDto } from './user.dto';
 import { IRepository } from 'src/common/repository.types';
-import { UserRepository } from './user.repository';
 import { RoleService } from '../role/role.service';
+import { IUserRepository } from './user.repository.interface';
 
 @Injectable()
 export class UserService {
   constructor(
-    @Inject(IRepository.IUserRepository) private userRepository: UserRepository,
+    @Inject(IRepository.IUserRepository)
+    private userRepository: IUserRepository,
     private roleService: RoleService,
   ) {}
 

@@ -23,6 +23,9 @@ export class CustomLoggerService implements LoggerService {
   }
 
   log(message: string, context?: string): void {
+    if (context === 'RoutesResolver' || context === 'RouterExplorer') {
+      return;
+    }
     this.logger.info(message, { context });
   }
 

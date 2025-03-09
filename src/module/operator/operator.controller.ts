@@ -31,7 +31,7 @@ export class OperatorController {
     return createBaseResponse(results);
   }
 
-  @Get('/prefix/:id')
+  @Get('/prefixes/:id')
   async findOperatorWithPrefixOperator(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<BaseResponse<IOperatorResponse>> {
@@ -40,9 +40,7 @@ export class OperatorController {
       id,
     );
     const result =
-      await this.operatorService.findOperatorWithPrefixOperators(
-        validateOperator,
-      );
+      await this.operatorService.findAllWithPrefixOperators(validateOperator);
     return createBaseResponse(result);
   }
 

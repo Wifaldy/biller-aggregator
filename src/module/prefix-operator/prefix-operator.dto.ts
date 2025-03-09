@@ -1,4 +1,4 @@
-import { IPrefixOperatorEntity } from 'src/model/prefix-operator.model';
+import { IPrefixOperatorEntity } from 'src/entity/prefix-operator.entity';
 
 export interface IPrefixOperatorResponse
   extends Pick<IPrefixOperatorEntity, 'id' | 'operatorId' | 'prefix'> {}

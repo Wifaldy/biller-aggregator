@@ -1,17 +1,17 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { IRepository } from 'src/common/repository.types';
-import { PrefixOperatorRepository } from './prefix-operator.repository';
 import {
   IPrefixOperatorCreate,
   IPrefixOperatorResponse,
   PrefixOperatorDto,
 } from './prefix-operator.dto';
+import { IPrefixOPeratorRepositoryInterface } from './prefix-operator.repository.interface';
 
 @Injectable()
 export class PrefixOperatorService {
   constructor(
     @Inject(IRepository.IPrefixOperatorRepository)
-    private prefixOperatorRepository: PrefixOperatorRepository,
+    private prefixOperatorRepository: IPrefixOPeratorRepositoryInterface,
   ) {}
 
   async create(

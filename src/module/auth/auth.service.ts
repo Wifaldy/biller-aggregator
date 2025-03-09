@@ -1,15 +1,16 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { ILoginRequest, ILoginResponse } from './auth.dto';
-import { IRepository } from 'src/common/repository.types';
-import { UserRepository } from '../user/user.repository';
-import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
 import { jwtConstants } from 'src/common/constants';
+import { IRepository } from 'src/common/repository.types';
+import { IUserRepository } from '../user/user.repository.interface';
+import { ILoginRequest, ILoginResponse } from './auth.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @Inject(IRepository.IUserRepository) private userRepository: UserRepository,
+    @Inject(IRepository.IUserRepository)
+    private userRepository: IUserRepository,
     private jwtService: JwtService,
   ) {}
 

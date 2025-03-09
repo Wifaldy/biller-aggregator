@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { BaseRepository } from 'src/common/base.repository';
-import { IOperatorEntity } from 'src/model/operator.model';
-import { IOperatorRepository } from './operator.repository.interface';
 import { PrismaService } from 'src/common/prisma.service';
+import { IOperatorEntity } from 'src/entity/operator.entity';
+import { IOperatorRepository } from './operator.repository.interface';
 
 @Injectable()
 export class OperatorRepository
@@ -41,7 +41,7 @@ export class OperatorRepository
     return references;
   }
 
-  async findOperatorWithPrefixOperators(id: number): Promise<IOperatorEntity> {
+  async findAllWithPrefixOperators(id: number): Promise<IOperatorEntity> {
     const operatorWithPrefixOperator =
       await this.prismaService.operator.findUnique({
         where: {
@@ -54,7 +54,7 @@ export class OperatorRepository
     return operatorWithPrefixOperator;
   }
 
-  async findAllOperatorWithProducts(): Promise<IOperatorEntity[]> {
+  async findAllWithProducts(): Promise<IOperatorEntity[]> {
     const operatorsWithProducts = await this.prismaService.operator.findMany({
       include: {
         prefixOperators: true,

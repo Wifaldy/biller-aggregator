@@ -1,4 +1,4 @@
-import { IOperatorEntity } from 'src/model/operator.model';
+import { IOperatorEntity } from 'src/entity/operator.entity';
 import {
   IPrefixOperatorResponse,
   PrefixOperatorDto,
