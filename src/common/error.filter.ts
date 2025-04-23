@@ -20,6 +20,7 @@ export class ErrorFilter implements ExceptionFilter {
 
   catch(exception: any, host: ArgumentsHost) {
     const response = host.switchToHttp().getResponse();
+    this.logger.info(host.switchToHttp().getRequest().url, 'Request URL');
     this.logger.warn(exception);
 
     let errorResponse: ErrorResponse;

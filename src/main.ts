@@ -8,6 +8,8 @@ async function bootstrap() {
   const logger = app.get(CustomLoggerService);
   app.useLogger(logger);
 
+  app.setGlobalPrefix('api');
+
   await app.listen(3000);
 }
 bootstrap();

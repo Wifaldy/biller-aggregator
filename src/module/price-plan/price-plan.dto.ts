@@ -4,8 +4,7 @@ export interface IPricePlanResponse
   extends Pick<IPricePlanEntity, 'id' | 'name'> {}
 
 export interface IPricePlanCreate extends Pick<IPricePlanEntity, 'name'> {}
-export interface IPricePlanUpdate
-  extends Pick<IPricePlanEntity, 'id' | 'name'> {}
+export interface IPricePlanUpdate extends Partial<IPricePlanEntity> {}
 
 export class PricePlanDto {
   static toDto(props: IPricePlanEntity): IPricePlanResponse {

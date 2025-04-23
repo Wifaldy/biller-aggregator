@@ -8,4 +8,6 @@ export const IRepository = {
   IPricePlanRepository: 'IPricePlanRepository',
   IPricePlanProductRepository: 'IPricePlanProductRepository',
   IPartnerRepository: 'IPartnerRepository',
+  ISupplierRepository: 'ISupplierRepository',
+  IProductSupplierRepository: 'IProductSupplierRepository',
 };

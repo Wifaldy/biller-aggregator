@@ -1,13 +1,13 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { IRepository } from 'src/common/repository.types';
+import { OperatorService } from '../operator/operator.service';
+import { ProductTypeService } from '../product-type/product-type.service';
 import {
   IProductCreate,
   IProductResponse,
   IProductUpdate,
   ProductDto,
 } from './product.dto';
-import { ProductTypeService } from '../product-type/product-type.service';
-import { OperatorService } from '../operator/operator.service';
 import { IProductRepository } from './product.repository.interface';
 
 @Injectable()
@@ -26,8 +26,8 @@ export class ProductService {
 
   async create(product: IProductCreate): Promise<IProductResponse> {
     await Promise.all([
-      await this.productTypeService.findById(product.productTypeId),
-      await this.operatorService.findById(product.operatorId),
+      this.productTypeService.findById(product.productTypeId),
+      this.operatorService.findById(product.operatorId),
     ]);
 
     const findBySku = await this.productRepository.findByCode(product.code);
@@ -50,9 +50,9 @@ export class ProductService {
 
   async update(product: IProductUpdate): Promise<IProductResponse> {
     await Promise.all([
-      await this.findById(product.id),
-      await this.productTypeService.findById(product.productTypeId),
-      await this.operatorService.findById(product.operatorId),
+      this.findById(product.id),
+      this.productTypeService.findById(product.productTypeId),
+      this.operatorService.findById(product.operatorId),
     ]);
 
     const findBySku = await this.productRepository.findByCode(product.code);

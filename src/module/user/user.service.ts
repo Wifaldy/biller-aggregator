@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { IUserRegister, IUserResponse, IUserUpdate, UserDto } from './user.dto';
 import { IRepository } from 'src/common/repository.types';
 import { RoleService } from '../role/role.service';
+import { IUserRegister, IUserResponse, IUserUpdate, UserDto } from './user.dto';
 import { IUserRepository } from './user.repository.interface';
 
 @Injectable()
@@ -20,8 +20,8 @@ export class UserService {
 
   async create(user: IUserRegister): Promise<IUserResponse> {
     const [findUsername, _] = await Promise.all([
-      await this.userRepository.findByUsername(user.username),
-      await this.roleService.findById(user.roleId),
+      this.userRepository.findByUsername(user.username),
+      this.roleService.findById(user.roleId),
     ]);
     if (findUsername) throw new HttpException('Username is already exist', 400);
 
@@ -47,8 +47,8 @@ export class UserService {
 
   async update(user: IUserUpdate): Promise<IUserResponse> {
     const [, _] = await Promise.all([
-      await this.findById(user.id),
-      await this.roleService.findById(user.roleId),
+      this.findById(user.id),
+      this.roleService.findById(user.roleId),
     ]);
     const updatedUser = await this.userRepository.update(user.id, user);
     return UserDto.toDto(updatedUser);

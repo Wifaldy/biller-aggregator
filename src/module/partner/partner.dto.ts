@@ -14,11 +14,10 @@ export interface IPartnerCreate
     | 'pin'
     | 'pricePlanId'
     | 'username'
+    | 'urlCallback'
   > {}
 
-export interface IPartnerUpdate extends Partial<IPartnerCreate> {
-  id: number;
-}
+export interface IPartnerUpdate extends Partial<IPartnerEntity> {}
 
 export interface IPartnerResponse extends Partial<IPartnerEntity> {}
 
@@ -42,6 +41,16 @@ export class PartnerDto {
       phone: props.phone,
       pin: props.pin,
       username: props.username,
+      pricePlanId: props.pricePlanId,
+    };
+  }
+
+  static toDtoList(props: IPartnerEntity): IPartnerResponse {
+    return {
+      id: props.id,
+      name: props.name,
+      address: props.address,
+      balance: props.balance,
       pricePlanId: props.pricePlanId,
     };
   }

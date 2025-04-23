@@ -8,8 +8,7 @@ import { IProductResponse, ProductDto } from '../product/product.dto';
 export interface IOperatorCreate
   extends Pick<IOperatorEntity, 'name' | 'minDigit' | 'maxDigit'> {}
 
-export interface IOperatorUpdate
-  extends Pick<IOperatorEntity, 'id' | 'name' | 'minDigit' | 'maxDigit'> {}
+export interface IOperatorUpdate extends Partial<IOperatorEntity> {}
 
 export interface IOperatorResponse
   extends Pick<IOperatorEntity, 'id' | 'name' | 'minDigit' | 'maxDigit'> {

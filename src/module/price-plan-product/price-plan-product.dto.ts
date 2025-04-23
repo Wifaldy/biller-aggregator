@@ -13,10 +13,7 @@ export interface IPricePlanProductCreate
   > {}
 
 export interface IPricePlanProductUpdate
-  extends Pick<
-    IPricePlanProductEntity,
-    'id' | 'sellPrice' | 'margin' | 'isActive'
-  > {}
+  extends Partial<IPricePlanProductEntity> {}
 
 export interface IListPricePlanWithProductsAndOperators {
   operatorId: number;

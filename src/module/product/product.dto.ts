@@ -29,20 +29,7 @@ export interface IProductCreate
     | 'productTypeId'
   > {}
 
-export interface IProductUpdate
-  extends Pick<
-    IProductEntity,
-    | 'id'
-    | 'code'
-    | 'description'
-    | 'isEmpty'
-    | 'isProblem'
-    | 'name'
-    | 'operationalTimeEnd'
-    | 'operationalTimeStart'
-    | 'operatorId'
-    | 'productTypeId'
-  > {}
+export interface IProductUpdate extends Partial<IProductEntity> {}
 
 export class ProductDto {
   static toDto(props: IProductEntity): IProductResponse {

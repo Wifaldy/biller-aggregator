@@ -1,4 +1,5 @@
 import { Injectable, LoggerService } from '@nestjs/common';
+import * as moment from 'moment';
 import { createLogger, format, Logger, transports } from 'winston';
 
 @Injectable()
@@ -17,7 +18,9 @@ export class CustomLoggerService implements LoggerService {
       ),
       transports: [
         new transports.Console(), // Console transport
-        new transports.File({ filename: `logs/app.log` }), // File transport
+        new transports.File({
+          filename: `logs/${moment().format('YYYY-MM-DD')}.log`,
+        }), // File transport
       ],
     });
   }

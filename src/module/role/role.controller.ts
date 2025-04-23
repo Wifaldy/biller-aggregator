@@ -8,10 +8,10 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { RoleService } from './role.service';
 import { BaseResponse, createBaseResponse } from 'src/common/base.response';
-import { IRoleCreate, IRoleResponse } from './role.dto';
 import { ValidationService } from 'src/common/validation.service';
+import { IRoleCreate, IRoleResponse } from './role.dto';
+import { RoleService } from './role.service';
 import { RoleValidation } from './role.validation';
 
 @Controller('roles')
@@ -31,11 +31,11 @@ export class RoleController {
   async findById(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<BaseResponse<IRoleResponse>> {
-    const validateUser = await this.validationService.validate(
+    const validateRole = await this.validationService.validate(
       RoleValidation.FIND_BY_ID,
       id,
     );
-    const result = await this.roleService.findById(validateUser);
+    const result = await this.roleService.findById(validateRole);
     return createBaseResponse(result);
   }
 

@@ -6,8 +6,7 @@ export interface IPrefixOperatorResponse
 export interface IPrefixOperatorCreate
   extends Pick<IPrefixOperatorEntity, 'operatorId' | 'prefix'> {}
 
-export interface IPrefixOperatorUpdate
-  extends Pick<IPrefixOperatorEntity, 'id' | 'prefix' | 'operatorId'> {}
+export interface IPrefixOperatorUpdate extends Partial<IPrefixOperatorEntity> {}
 
 export class PrefixOperatorDto {
   static toDto(props: IPrefixOperatorEntity): IPrefixOperatorResponse {

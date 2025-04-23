@@ -1,5 +1,7 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { IRepository } from 'src/common/repository.types';
+import { PricePlanService } from '../price-plan/price-plan.service';
+import { ProductService } from '../product/product.service';
 import {
   IListPricePlanWithProductsAndOperators,
   IPricePlanProductCreate,
@@ -7,8 +9,6 @@ import {
   IPricePlanProductUpdate,
   PricePlanProductDto,
 } from './price-plan-product.dto';
-import { PricePlanService } from '../price-plan/price-plan.service';
-import { ProductService } from '../product/product.service';
 import { IPricePlanProductRepository } from './price-plan-product.repository.interface';
 
 @Injectable()
@@ -33,8 +33,8 @@ export class PricePlanProductService {
     pricePlanProduct: IPricePlanProductCreate,
   ): Promise<IPricePlanProductResponse> {
     await Promise.all([
-      await this.pricePlanService.findById(pricePlanProduct.pricePlanId),
-      await this.productService.findById(pricePlanProduct.productId),
+      this.pricePlanService.findById(pricePlanProduct.pricePlanId),
+      this.productService.findById(pricePlanProduct.productId),
     ]);
 
     const createdPricePlanProduct =

@@ -85,6 +85,7 @@ model Product {
   operator          Operator           @relation(fields: [operatorId], references: [id])
   productType       ProductType        @relation(fields: [productTypeId], references: [id])
   pricePlanProducts PricePlanProduct[]
+  productSupplier   ProductSupplier[]
 
   @@map("products")
 }
@@ -142,10 +143,39 @@ model Partner {
   username    String      @db.VarChar(100)
   password    String      @db.VarChar(100)
   pin         String      @db.VarChar(100)
+  urlCallback String?     @map("url_callback") @db.VarChar(100)
   createdAt   DateTime    @default(now()) @map("created_at") @db.Timestamptz()
   updatedAt   DateTime    @updatedAt @map("updated_at") @db.Timestamptz()
 
   pricePlan PricePlan @relation(fields: [pricePlanId], references: [id])
 
   @@map("partners")
+}
+
+model Supplier {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(100)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+
+  productSupplier ProductSupplier[]
+
+  @@map("suppliers")
+}
+
+model ProductSupplier {
+  id         Int      @id @default(autoincrement())
+  supplierId Int      @map("supplier_id")
+  code       String   @db.VarChar(100)
+  productId  Int      @map("product_id")
+  isActive   Boolean  @default(false) @map("is_active") @db.Boolean
+  priority   Int      @default(0)
+  buyPrice   Int      @default(0) @map("buy_price")
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz()
+  updatedAt  DateTime @updatedAt @map("updated_at") @db.Timestamptz()
+
+  supplier Supplier @relation(fields: [supplierId], references: [id])
+  product  Product  @relation(fields: [productId], references: [id])
+
+  @@map("product_suppliers")
 }

@@ -21,6 +21,7 @@ export class PartnerValidation extends BaseValidation {
     username: z.string().min(1).trim().default(generateRandomUsernameString()),
     password: z.string().min(1).trim().default(generateRandomPasswordString()),
     pin: z.string().min(1).trim().default(generateRandomPinString()),
+    urlCallback: z.string().optional().nullable(),
     pricePlanId: z.number().positive(),
   });
 

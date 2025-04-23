@@ -23,16 +23,21 @@ export class PartnerService {
     private pricePlanService: PricePlanService,
   ) {}
 
+  async findAll(): Promise<IPartnerResponse[]> {
+    const datas = await this.partnerRepository.findAll();
+    return datas.map((data) => PartnerDto.toDtoList(data));
+  }
+
   async create(partner: IPartnerCreate): Promise<IPartnerResponse> {
     const [findByEmail] = await Promise.all([
-      await this.partnerRepository.findByEmail(partner.email),
-      await this.pricePlanService.findById(partner.pricePlanId),
+      this.partnerRepository.findByEmail(partner.email),
+      this.pricePlanService.findById(partner.pricePlanId),
     ]);
     if (findByEmail)
       throw new HttpException('Email already exists', HttpStatus.BAD_REQUEST);
     const [hashedPassword, hashedPin] = await Promise.all([
-      await bcrypt.hash(partner.password, 12),
-      await bcrypt.hash(partner.pin, 12),
+      bcrypt.hash(partner.password, 12),
+      bcrypt.hash(partner.pin, 12),
     ]);
     const createdPartner = await this.partnerRepository.create({
       ...partner,
@@ -74,8 +79,8 @@ export class PartnerService {
     const pin = generateRandomPasswordString();
     const username = generateRandomUsernameString();
     const [hashedPassword, hashedPin] = await Promise.all([
-      await bcrypt.hash(password, 12),
-      await bcrypt.hash(pin, 12),
+      bcrypt.hash(password, 12),
+      bcrypt.hash(pin, 12),
     ]);
     await this.partnerRepository.update(id, {
       password: hashedPassword,

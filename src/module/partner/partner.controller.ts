@@ -27,6 +27,12 @@ export class PartnerController {
     private readonly validationService: ValidationService,
   ) {}
 
+  @Get()
+  async findAll(): Promise<BaseResponse<IPartnerResponse[]>> {
+    const results = await this.partnerService.findAll();
+    return createBaseResponse(results);
+  }
+
   @Post()
   async create(
     @Body() partner: IPartnerCreate,
@@ -50,6 +56,7 @@ export class PartnerController {
       phone: validatePartner.phone,
       pin: validatePartner.pin,
       username: validatePartner.username,
+      urlCallback: validatePartner.urlCallback,
     });
     return createBaseResponse(result);
   }
@@ -88,6 +95,7 @@ export class PartnerController {
       balanceType: validatePartner.balanceType as BalanceType,
       email: validatePartner.email,
       phone: validatePartner.phone,
+      urlCallback: validatePartner.urlCallback,
     });
     return createBaseResponse(result);
   }

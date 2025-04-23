@@ -3,8 +3,7 @@ import { IUserEntity } from 'src/entity/user.entity';
 export interface IUserRegister
   extends Pick<IUserEntity, 'username' | 'name' | 'password' | 'roleId'> {}
 
-export interface IUserUpdate
-  extends Pick<IUserEntity, 'id' | 'name' | 'roleId'> {}
+export interface IUserUpdate extends Partial<IUserEntity> {}
 
 export interface IUserResponse
   extends Pick<IUserEntity, 'username' | 'name' | 'id' | 'role'> {}
