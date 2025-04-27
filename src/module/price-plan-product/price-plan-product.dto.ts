@@ -1,19 +1,19 @@
-import { IPricePlanProductEntity } from 'src/entity/price-plan-product.entity';
+import { PricePlanProductEntity } from 'src/entity/price-plan-product.entity';
 
 export interface IPricePlanProductResponse
   extends Pick<
-    IPricePlanProductEntity,
+    PricePlanProductEntity,
     'id' | 'pricePlanId' | 'productId' | 'sellPrice' | 'margin' | 'isActive'
   > {}
 
 export interface IPricePlanProductCreate
   extends Pick<
-    IPricePlanProductEntity,
+    PricePlanProductEntity,
     'pricePlanId' | 'productId' | 'sellPrice' | 'margin' | 'isActive'
   > {}
 
 export interface IPricePlanProductUpdate
-  extends Partial<IPricePlanProductEntity> {}
+  extends Partial<PricePlanProductEntity> {}
 
 export interface IListPricePlanWithProductsAndOperators {
   operatorId: number;
@@ -31,7 +31,7 @@ export interface IProductWithPrice {
 }
 
 export class PricePlanProductDto {
-  static toDto(props: IPricePlanProductEntity): IPricePlanProductResponse {
+  static toDto(props: PricePlanProductEntity): IPricePlanProductResponse {
     return {
       id: props.id,
       pricePlanId: props.pricePlanId,
@@ -42,7 +42,7 @@ export class PricePlanProductDto {
     };
   }
   static toDtoWithProductsAndOperators(
-    props: IPricePlanProductEntity[],
+    props: PricePlanProductEntity[],
   ): IListPricePlanWithProductsAndOperators[] {
     const operators: IListPricePlanWithProductsAndOperators[] = [];
     for (const prop of props) {

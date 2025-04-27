@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { IRepository } from 'src/common/repository.types';
+import { OperatorService } from '../operator/operator.service';
 import {
   IPrefixOperatorCreate,
   IPrefixOperatorResponse,
@@ -12,11 +13,14 @@ export class PrefixOperatorService {
   constructor(
     @Inject(IRepository.IPrefixOperatorRepository)
     private prefixOperatorRepository: IPrefixOPeratorRepositoryInterface,
+    private operatorService: OperatorService,
   ) {}
 
   async create(
     prefixOperator: IPrefixOperatorCreate,
   ): Promise<IPrefixOperatorResponse> {
+    await this.operatorService.findById(prefixOperator.operatorId);
+
     const createdPrefixOperator =
       await this.prefixOperatorRepository.create(prefixOperator);
     return PrefixOperatorDto.toDto(createdPrefixOperator);

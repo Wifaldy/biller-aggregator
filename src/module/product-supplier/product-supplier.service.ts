@@ -42,6 +42,7 @@ export class ProductSupplierService {
       this.supplierService.findById(productSupplier.supplierId),
       this.productService.findById(productSupplier.productId),
     ]);
+    console.log(productSupplier);
     const createdProductSupplier =
       await this.productSupplierRepository.create(productSupplier);
     return ProductSupplierDto.toDto(createdProductSupplier);

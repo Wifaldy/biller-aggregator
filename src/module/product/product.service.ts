@@ -36,7 +36,6 @@ export class ProductService {
         'Product code is already exists',
         HttpStatus.CONFLICT,
       );
-
     const createdProduct = await this.productRepository.create(product);
     return ProductDto.toDto(createdProduct);
   }

@@ -5,7 +5,7 @@ import {
   HttpStatus,
   Injectable,
 } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { JsonWebTokenError, JwtService } from '@nestjs/jwt';
 // import { Observable } from 'rxjs';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class JwtAuthGuard implements CanActivate {
       request.user = payload;
       return true;
     } catch (err) {
-      throw new HttpException(err, HttpStatus.UNAUTHORIZED);
+      throw new JsonWebTokenError('Invalid Signature', err);
     }
   }
 

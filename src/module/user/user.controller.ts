@@ -8,15 +8,13 @@ import {
   Post,
   Put,
   Req,
-  UseGuards,
 } from '@nestjs/common';
-import { UserService } from './user.service';
-import { BaseResponse, createBaseResponse } from '../../common/base.response';
-import { IUserRegister, IUserResponse, IUserUpdate } from './user.dto';
 import { ValidationService } from 'src/common/validation.service';
-import { UserValidation } from './user.validation';
+import { BaseResponse, createBaseResponse } from '../../common/base.response';
 import { IRoleResponse } from '../role/role.dto';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { IUserRegister, IUserResponse, IUserUpdate } from './user.dto';
+import { UserService } from './user.service';
+import { UserValidation } from './user.validation';
 
 @Controller('users')
 export class UserController {
@@ -42,7 +40,7 @@ export class UserController {
     return createBaseResponse(result);
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get()
   async findAll(@Req() _req): Promise<BaseResponse<IRoleResponse[]>> {
     const result = await this.userSerivce.findAll();

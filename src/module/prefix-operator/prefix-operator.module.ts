@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { PrefixOperatorController } from './prefix-operator.controller';
-import { PrefixOperatorService } from './prefix-operator.service';
 import { IRepository } from 'src/common/repository.types';
+import { OperatorModule } from '../operator/operator.module';
+import { PrefixOperatorController } from './prefix-operator.controller';
 import { PrefixOperatorRepository } from './prefix-operator.repository';
+import { PrefixOperatorService } from './prefix-operator.service';
 
 @Module({
   controllers: [PrefixOperatorController],
@@ -13,5 +14,6 @@ import { PrefixOperatorRepository } from './prefix-operator.repository';
       useClass: PrefixOperatorRepository,
     },
   ],
+  imports: [OperatorModule],
 })
 export class PrefixOperatorModule {}

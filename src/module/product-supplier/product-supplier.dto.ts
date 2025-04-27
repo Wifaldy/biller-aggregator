@@ -1,17 +1,17 @@
-import { IProductSupplierEntity } from 'src/entity/product-supplier.entity';
+import { ProductSupplierEntity } from 'src/entity/product-supplier.entity';
 
 export interface IProductSupplierCreate
   extends Pick<
-    IProductSupplierEntity,
+    ProductSupplierEntity,
     'supplierId' | 'code' | 'productId' | 'isActive' | 'priority' | 'buyPrice'
   > {}
 
 export interface IProductSupplierUpdate
-  extends Partial<IProductSupplierEntity> {}
+  extends Partial<ProductSupplierEntity> {}
 
 export interface IProductSupplierResponse
   extends Pick<
-    IProductSupplierEntity,
+    ProductSupplierEntity,
     | 'id'
     | 'code'
     | 'priority'
@@ -22,7 +22,7 @@ export interface IProductSupplierResponse
   > {}
 
 export class ProductSupplierDto {
-  static toDto(props: IProductSupplierEntity): IProductSupplierResponse {
+  static toDto(props: ProductSupplierEntity): IProductSupplierResponse {
     return {
       id: props.id,
       code: props.code,

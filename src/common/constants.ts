@@ -4,9 +4,7 @@ export const jwtConstants = {
   expired: '600s',
 };
 
-export type BalanceType = 'DEPOSIT' | 'SETTLEMENT';
-
-export enum BalanceTypeEnum {
+export enum BalanceType {
   DEPOSIT = 'DEPOSIT',
   SETTLEMENT = 'SETTLEMENT',
 }

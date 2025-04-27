@@ -1,15 +1,15 @@
-import { IPrefixOperatorEntity } from 'src/entity/prefix-operator.entity';
+import { PrefixOperatorEntity } from 'src/entity/prefix-operator.entity';
 
 export interface IPrefixOperatorResponse
-  extends Pick<IPrefixOperatorEntity, 'id' | 'operatorId' | 'prefix'> {}
+  extends Pick<PrefixOperatorEntity, 'id' | 'operatorId' | 'prefix'> {}
 
 export interface IPrefixOperatorCreate
-  extends Pick<IPrefixOperatorEntity, 'operatorId' | 'prefix'> {}
+  extends Pick<PrefixOperatorEntity, 'operatorId' | 'prefix'> {}
 
-export interface IPrefixOperatorUpdate extends Partial<IPrefixOperatorEntity> {}
+export interface IPrefixOperatorUpdate extends Partial<PrefixOperatorEntity> {}
 
 export class PrefixOperatorDto {
-  static toDto(props: IPrefixOperatorEntity): IPrefixOperatorResponse {
+  static toDto(props: PrefixOperatorEntity): IPrefixOperatorResponse {
     return {
       id: props.id,
       operatorId: props.operatorId,

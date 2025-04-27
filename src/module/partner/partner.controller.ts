@@ -9,7 +9,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { BaseResponse, createBaseResponse } from 'src/common/base.response';
-import { BalanceType, BalanceTypeEnum } from 'src/common/constants';
+import { BalanceType } from 'src/common/constants';
 import { ValidationService } from 'src/common/validation.service';
 import {
   IPartnerCreate,
@@ -41,7 +41,7 @@ export class PartnerController {
       PartnerValidation.CREATE,
       {
         ...partner,
-        balanceType: partner.balanceType?.toUpperCase() as BalanceTypeEnum,
+        balanceType: partner.balanceType?.toUpperCase() as BalanceType,
       },
     );
     const result = await this.partnerService.create({
@@ -50,7 +50,7 @@ export class PartnerController {
       pricePlanId: validatePartner.pricePlanId,
       balance: validatePartner.balance,
       isActive: validatePartner.isActive,
-      balanceType: validatePartner.balanceType as BalanceType,
+      balanceType: validatePartner.balanceType,
       email: validatePartner.email,
       password: validatePartner.password,
       phone: validatePartner.phone,
@@ -83,7 +83,7 @@ export class PartnerController {
       {
         ...partner,
         id,
-        balanceType: partner.balanceType?.toUpperCase() as BalanceTypeEnum,
+        balanceType: partner.balanceType?.toUpperCase() as BalanceType,
       },
     );
     const result = await this.partnerService.update({
@@ -92,7 +92,7 @@ export class PartnerController {
       name: validatePartner.name,
       pricePlanId: validatePartner.pricePlanId,
       isActive: validatePartner.isActive,
-      balanceType: validatePartner.balanceType as BalanceType,
+      balanceType: validatePartner.balanceType,
       email: validatePartner.email,
       phone: validatePartner.phone,
       urlCallback: validatePartner.urlCallback,

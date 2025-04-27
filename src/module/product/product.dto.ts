@@ -1,5 +1,5 @@
 import { formatTimeToUtc } from 'src/common/time.helper';
-import { IProductEntity } from 'src/entity/product.entity';
+import { ProductEntity } from 'src/entity/product.entity';
 import {
   IProductTypeResponse,
   ProductTypeDto,
@@ -7,7 +7,7 @@ import {
 
 export interface IProductResponse
   extends Pick<
-    IProductEntity,
+    ProductEntity,
     'id' | 'name' | 'code' | 'description' | 'isProblem' | 'isEmpty'
   > {
   operationalTimeStart: string;
@@ -17,7 +17,7 @@ export interface IProductResponse
 
 export interface IProductCreate
   extends Pick<
-    IProductEntity,
+    ProductEntity,
     | 'name'
     | 'code'
     | 'description'
@@ -29,10 +29,10 @@ export interface IProductCreate
     | 'productTypeId'
   > {}
 
-export interface IProductUpdate extends Partial<IProductEntity> {}
+export interface IProductUpdate extends Partial<ProductEntity> {}
 
 export class ProductDto {
-  static toDto(props: IProductEntity): IProductResponse {
+  static toDto(props: ProductEntity): IProductResponse {
     const operationalTimeStart = formatTimeToUtc(props.operationalTimeStart);
     const operationalTimeEnd = formatTimeToUtc(props.operationalTimeEnd);
     return {
@@ -47,7 +47,7 @@ export class ProductDto {
     };
   }
 
-  static toDtoWithProductType(props: IProductEntity): IProductResponse {
+  static toDtoWithProductType(props: ProductEntity): IProductResponse {
     const operationalTimeStart = formatTimeToUtc(props.operationalTimeStart);
     const operationalTimeEnd = formatTimeToUtc(props.operationalTimeEnd);
     return {

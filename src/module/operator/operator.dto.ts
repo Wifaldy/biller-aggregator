@@ -1,4 +1,4 @@
-import { IOperatorEntity } from 'src/entity/operator.entity';
+import { OperatorEntity } from 'src/entity/operator.entity';
 import {
   IPrefixOperatorResponse,
   PrefixOperatorDto,
@@ -6,18 +6,18 @@ import {
 import { IProductResponse, ProductDto } from '../product/product.dto';
 
 export interface IOperatorCreate
-  extends Pick<IOperatorEntity, 'name' | 'minDigit' | 'maxDigit'> {}
+  extends Pick<OperatorEntity, 'name' | 'minDigit' | 'maxDigit'> {}
 
-export interface IOperatorUpdate extends Partial<IOperatorEntity> {}
+export interface IOperatorUpdate extends Partial<OperatorEntity> {}
 
 export interface IOperatorResponse
-  extends Pick<IOperatorEntity, 'id' | 'name' | 'minDigit' | 'maxDigit'> {
+  extends Pick<OperatorEntity, 'id' | 'name' | 'minDigit' | 'maxDigit'> {
   prefixOperators?: IPrefixOperatorResponse[];
   products?: IProductResponse[];
 }
 
 export class OperatorDto {
-  static toDto(props: IOperatorEntity): IOperatorResponse {
+  static toDto(props: OperatorEntity): IOperatorResponse {
     return {
       id: props.id,
       name: props.name,
@@ -26,7 +26,7 @@ export class OperatorDto {
     };
   }
 
-  static toDtoWithPrefixOperators(props: IOperatorEntity): IOperatorResponse {
+  static toDtoWithPrefixOperators(props: OperatorEntity): IOperatorResponse {
     return {
       id: props.id,
       name: props.name,
@@ -38,7 +38,7 @@ export class OperatorDto {
     };
   }
 
-  static toDtoWithProducts(props: IOperatorEntity): IOperatorResponse {
+  static toDtoWithProducts(props: OperatorEntity): IOperatorResponse {
     return {
       id: props.id,
       name: props.name,

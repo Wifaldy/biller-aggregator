@@ -1,5 +1,5 @@
 import { BaseValidation } from 'src/common/base.validation';
-import { BalanceTypeEnum } from 'src/common/constants';
+import { BalanceType } from 'src/common/constants';
 import {
   generateRandomPasswordString,
   generateRandomPinString,
@@ -14,8 +14,8 @@ export class PartnerValidation extends BaseValidation {
     phone: z.string().min(1).max(20).trim(),
     balance: z.number().optional().default(0),
     balanceType: z
-      .enum([BalanceTypeEnum.DEPOSIT, BalanceTypeEnum.SETTLEMENT])
-      .default(BalanceTypeEnum.DEPOSIT),
+      .enum([BalanceType.DEPOSIT, BalanceType.SETTLEMENT])
+      .default(BalanceType.DEPOSIT),
     email: z.string().email().min(1).max(50).trim(),
     isActive: z.boolean().optional().default(true),
     username: z.string().min(1).trim().default(generateRandomUsernameString()),

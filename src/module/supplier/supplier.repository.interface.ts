@@ -1,6 +1,6 @@
 import { IBaseRepository } from 'src/common/base.repository.interface';
-import { ISupplierEntity } from 'src/entity/supplier.entity';
+import { SupplierEntity } from 'src/entity/supplier.entity';
 
-export interface ISupplierRepository extends IBaseRepository<ISupplierEntity> {
+export interface ISupplierRepository extends IBaseRepository<SupplierEntity> {
   checkRoleReferences(id: number): Promise<boolean>;
 }

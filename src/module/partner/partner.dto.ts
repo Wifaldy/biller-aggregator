@@ -1,8 +1,8 @@
-import { IPartnerEntity } from 'src/entity/partner.entity';
+import { PartnerEntity } from 'src/entity/partner.entity';
 
 export interface IPartnerCreate
   extends Pick<
-    IPartnerEntity,
+    PartnerEntity,
     | 'name'
     | 'address'
     | 'balance'
@@ -17,9 +17,9 @@ export interface IPartnerCreate
     | 'urlCallback'
   > {}
 
-export interface IPartnerUpdate extends Partial<IPartnerEntity> {}
+export interface IPartnerUpdate extends Partial<PartnerEntity> {}
 
-export interface IPartnerResponse extends Partial<IPartnerEntity> {}
+export interface IPartnerResponse extends Partial<PartnerEntity> {}
 
 export interface IPartnerResetCredentials {
   username: string;
@@ -28,7 +28,7 @@ export interface IPartnerResetCredentials {
 }
 
 export class PartnerDto {
-  static toDto(props: IPartnerEntity): IPartnerResponse {
+  static toDto(props: PartnerEntity): IPartnerResponse {
     return {
       id: props.id,
       address: props.address,
@@ -45,7 +45,7 @@ export class PartnerDto {
     };
   }
 
-  static toDtoList(props: IPartnerEntity): IPartnerResponse {
+  static toDtoList(props: PartnerEntity): IPartnerResponse {
     return {
       id: props.id,
       name: props.name,

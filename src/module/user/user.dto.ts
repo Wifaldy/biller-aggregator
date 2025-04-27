@@ -1,15 +1,15 @@
-import { IUserEntity } from 'src/entity/user.entity';
+import { UserEntity } from 'src/entity/user.entity';
 
 export interface IUserRegister
-  extends Pick<IUserEntity, 'username' | 'name' | 'password' | 'roleId'> {}
+  extends Pick<UserEntity, 'username' | 'name' | 'password' | 'roleId'> {}
 
-export interface IUserUpdate extends Partial<IUserEntity> {}
+export interface IUserUpdate extends Partial<UserEntity> {}
 
 export interface IUserResponse
-  extends Pick<IUserEntity, 'username' | 'name' | 'id' | 'role'> {}
+  extends Pick<UserEntity, 'username' | 'name' | 'id' | 'role'> {}
 
 export class UserDto {
-  static toDto(props: IUserEntity): IUserResponse {
+  static toDto(props: UserEntity): IUserResponse {
     return {
       id: props.id,
       name: props.name,
@@ -17,7 +17,7 @@ export class UserDto {
     };
   }
 
-  static toDtoWithRole(props: IUserEntity): IUserResponse {
+  static toDtoWithRole(props: UserEntity): IUserResponse {
     return {
       id: props.id,
       name: props.name,

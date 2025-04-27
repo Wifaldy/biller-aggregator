@@ -1,36 +1,38 @@
 import { Injectable } from '@nestjs/common';
 import { BaseRepository } from 'src/common/base.repository';
 import { PrismaService } from 'src/common/prisma.service';
-import { IOperatorEntity } from 'src/entity/operator.entity';
+import { OperatorEntity } from 'src/entity/operator.entity';
 import { IOperatorRepository } from './operator.repository.interface';
 
 @Injectable()
 export class OperatorRepository
-  extends BaseRepository<IOperatorEntity>
+  extends BaseRepository<OperatorEntity>
   implements IOperatorRepository
 {
   constructor(private prismaService: PrismaService) {
-    super(prismaService.operator);
+    super(prismaService.operators, OperatorEntity);
   }
 
   async checkOperatorReferences(id: number): Promise<boolean> {
-    const findOperatorReferences = await this.prismaService.operator.findFirst({
-      select: {
-        prefixOperators: {
-          select: {
-            id: true,
+    const findOperatorReferences = await OperatorEntity.fromPrisma(
+      this.prismaService.operators.findFirst({
+        select: {
+          prefix_operators: {
+            select: {
+              id: true,
+            },
+          },
+          products: {
+            select: {
+              id: true,
+            },
           },
         },
-        products: {
-          select: {
-            id: true,
-          },
+        where: {
+          id,
         },
-      },
-      where: {
-        id,
-      },
-    });
+      }),
+    );
     let references = false;
     if (
       findOperatorReferences.prefixOperators.length > 0 ||
@@ -41,30 +43,32 @@ export class OperatorRepository
     return references;
   }
 
-  async findAllWithPrefixOperators(id: number): Promise<IOperatorEntity> {
+  async findAllWithPrefixOperators(id: number): Promise<OperatorEntity> {
     const operatorWithPrefixOperator =
-      await this.prismaService.operator.findUnique({
+      await this.prismaService.operators.findUnique({
         where: {
           id,
         },
         include: {
-          prefixOperators: true,
+          prefix_operators: true,
         },
       });
-    return operatorWithPrefixOperator;
+    return OperatorEntity.fromPrisma(operatorWithPrefixOperator);
   }
 
-  async findAllWithProducts(): Promise<IOperatorEntity[]> {
-    const operatorsWithProducts = await this.prismaService.operator.findMany({
+  async findAllWithProducts(): Promise<OperatorEntity[]> {
+    const operatorsWithProducts = await this.prismaService.operators.findMany({
       include: {
-        prefixOperators: true,
+        prefix_operators: true,
         products: {
           include: {
-            productType: true,
+            product_type: true,
           },
         },
       },
     });
-    return operatorsWithProducts;
+    return operatorsWithProducts.map((operator) =>
+      OperatorEntity.fromPrisma(operator),
+    );
   }
 }

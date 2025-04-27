@@ -1,25 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { BaseRepository } from 'src/common/base.repository';
 import { PrismaService } from 'src/common/prisma.service';
-import { IPricePlanProductEntity } from 'src/entity/price-plan-product.entity';
+import { PricePlanProductEntity } from 'src/entity/price-plan-product.entity';
 import { IPricePlanProductRepository } from './price-plan-product.repository.interface';
 
 @Injectable()
 export class PricePlanProductRepository
-  extends BaseRepository<IPricePlanProductEntity>
+  extends BaseRepository<PricePlanProductEntity>
   implements IPricePlanProductRepository
 {
   constructor(private prismaService: PrismaService) {
-    super(prismaService.pricePlanProduct);
+    super(prismaService.price_plan_products, PricePlanProductEntity);
   }
 
-  async findAllByPricePlanId(
+  async findAllBypricePlanId(
     pricePlanId: number,
-  ): Promise<IPricePlanProductEntity[]> {
+  ): Promise<PricePlanProductEntity[]> {
     const pricePlanProducts =
-      await this.prismaService.pricePlanProduct.findMany({
+      await this.prismaService.price_plan_products.findMany({
         where: {
-          pricePlanId,
+          price_plan_id: pricePlanId,
         },
         include: {
           product: {
@@ -29,6 +29,8 @@ export class PricePlanProductRepository
           },
         },
       });
-    return pricePlanProducts;
+    return pricePlanProducts.map((pricePlanProduct) =>
+      PricePlanProductEntity.fromPrisma(pricePlanProduct),
+    );
   }
 }

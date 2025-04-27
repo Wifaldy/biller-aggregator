@@ -1,13 +1,13 @@
-import { IRoleEntity } from 'src/entity/role.entity';
+import { RoleEntity } from 'src/entity/role.entity';
 
-export interface IRoleCreate extends Pick<IRoleEntity, 'name'> {}
+export interface IRoleCreate extends Pick<RoleEntity, 'name'> {}
 
-export interface IRoleUpdate extends Partial<IRoleEntity> {}
+export interface IRoleUpdate extends Partial<RoleEntity> {}
 
-export interface IRoleResponse extends Pick<IRoleEntity, 'id' | 'name'> {}
+export interface IRoleResponse extends Pick<RoleEntity, 'id' | 'name'> {}
 
 export class RoleDto {
-  static toDto(props: IRoleEntity): IRoleResponse {
+  static toDto(props: RoleEntity): IRoleResponse {
     return {
       id: props.id,
       name: props.name,

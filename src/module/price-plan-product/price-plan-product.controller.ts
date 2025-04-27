@@ -8,15 +8,15 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { PricePlanProductService } from './price-plan-product.service';
+import { BaseResponse, createBaseResponse } from 'src/common/base.response';
+import { ValidationService } from 'src/common/validation.service';
 import {
   IListPricePlanWithProductsAndOperators,
   IPricePlanProductCreate,
   IPricePlanProductResponse,
   IPricePlanProductUpdate,
 } from './price-plan-product.dto';
-import { BaseResponse, createBaseResponse } from 'src/common/base.response';
-import { ValidationService } from 'src/common/validation.service';
+import { PricePlanProductService } from './price-plan-product.service';
 import { PricePlanProductValidation } from './price-plan-product.validation';
 
 @Controller('price-plan-products')
@@ -27,11 +27,11 @@ export class PricePlanProductController {
   ) {}
 
   @Get('/price-plans/:pricePlanId')
-  async findAllByPricePlanId(
+  async findAllBypricePlanId(
     @Param('pricePlanId', ParseIntPipe) pricePlanId: number,
   ): Promise<BaseResponse<IListPricePlanWithProductsAndOperators[]>> {
     const result =
-      await this.pricePlanProductService.findAllByPricePlanId(pricePlanId);
+      await this.pricePlanProductService.findAllBypricePlanId(pricePlanId);
     return createBaseResponse(result);
   }
 

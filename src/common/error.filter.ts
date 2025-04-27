@@ -5,6 +5,7 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
+import { JsonWebTokenError } from '@nestjs/jwt';
 import { ZodError } from 'zod';
 import { CustomLoggerService } from './logger.service';
 
@@ -14,13 +15,17 @@ interface ErrorResponse {
   errors?: { field: string; error: string }[];
 }
 
-@Catch(ZodError, HttpException)
+@Catch()
 export class ErrorFilter implements ExceptionFilter {
   constructor(private readonly logger: CustomLoggerService) {}
 
   catch(exception: any, host: ArgumentsHost) {
     const response = host.switchToHttp().getResponse();
-    this.logger.info(host.switchToHttp().getRequest().url, 'Request URL');
+    this.logger.info(
+      `${host.switchToHttp().getRequest().method} ${host.switchToHttp().getRequest().url}`,
+      'Request URL',
+    );
+
     this.logger.warn(exception);
 
     let errorResponse: ErrorResponse;
@@ -38,6 +43,12 @@ export class ErrorFilter implements ExceptionFilter {
         message: exception.message,
       };
       response.status(exception.getStatus()).json(errorResponse);
+    } else if (exception instanceof JsonWebTokenError) {
+      errorResponse = {
+        status: HttpStatus.UNAUTHORIZED,
+        message: exception.message,
+      };
+      response.status(401).json(errorResponse);
     } else {
       errorResponse = {
         status: HttpStatus.INTERNAL_SERVER_ERROR,

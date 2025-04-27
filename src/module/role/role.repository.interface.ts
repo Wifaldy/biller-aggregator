@@ -1,7 +1,7 @@
 import { IBaseRepository } from 'src/common/base.repository.interface';
-import { IRoleEntity } from 'src/entity/role.entity';
+import { RoleEntity } from 'src/entity/role.entity';
 
-export interface IRoleRepository extends IBaseRepository<IRoleEntity> {
-  findByName(name: string): Promise<IRoleEntity | null>;
+export interface IRoleRepository extends IBaseRepository<RoleEntity> {
+  findByName(name: string): Promise<RoleEntity | null>;
   checkRoleReferences(id: number): Promise<boolean>;
 }

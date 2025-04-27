@@ -20,12 +20,12 @@ export class PricePlanProductService {
     private productService: ProductService,
   ) {}
 
-  async findAllByPricePlanId(
+  async findAllBypricePlanId(
     pricePlanId: number,
   ): Promise<IListPricePlanWithProductsAndOperators[]> {
     await this.pricePlanService.findById(pricePlanId);
     const pricePlanProducts =
-      await this.pricePlanProductRepository.findAllByPricePlanId(pricePlanId);
+      await this.pricePlanProductRepository.findAllBypricePlanId(pricePlanId);
     return PricePlanProductDto.toDtoWithProductsAndOperators(pricePlanProducts);
   }
 
