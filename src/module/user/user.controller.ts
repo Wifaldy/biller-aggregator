@@ -7,12 +7,17 @@ import {
   ParseIntPipe,
   Post,
   Put,
-  Req,
+  Query,
 } from '@nestjs/common';
+import { IPaginationResponse } from 'src/common/pagination.interface';
 import { ValidationService } from 'src/common/validation.service';
 import { BaseResponse, createBaseResponse } from '../../common/base.response';
-import { IRoleResponse } from '../role/role.dto';
-import { IUserRegister, IUserResponse, IUserUpdate } from './user.dto';
+import {
+  IUserPaginationRequest,
+  IUserRegister,
+  IUserResponse,
+  IUserUpdate,
+} from './user.dto';
 import { UserService } from './user.service';
 import { UserValidation } from './user.validation';
 
@@ -42,14 +47,32 @@ export class UserController {
 
   // @UseGuards(JwtAuthGuard)
   @Get()
-  async findAll(@Req() _req): Promise<BaseResponse<IRoleResponse[]>> {
-    const result = await this.userSerivce.findAll();
+  async findAll(
+    @Query() query: IUserPaginationRequest,
+  ): Promise<
+    BaseResponse<IUserResponse[] | IPaginationResponse<IUserResponse>>
+  > {
+    const validatePagination = this.validationService.validate(
+      UserValidation.PAGINATION,
+      {
+        limit: query.limit ? +query.limit : 0,
+        page: query.page ? +query.page : 0,
+        name: query.name,
+      },
+    );
+
+    if (validatePagination.limit == 0 || validatePagination.page == 0) {
+      const result = await this.userSerivce.findAll();
+      return createBaseResponse(result);
+    }
+    const result =
+      await this.userSerivce.findAllWithPagination(validatePagination);
     return createBaseResponse(result);
   }
   @Get('/:id')
   async findById(
     @Param('id', ParseIntPipe) id: number,
-  ): Promise<BaseResponse<IRoleResponse>> {
+  ): Promise<BaseResponse<IUserResponse>> {
     const validateUser = await this.validationService.validate(
       UserValidation.FIND_BY_ID,
       id,

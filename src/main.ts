@@ -9,6 +9,7 @@ async function bootstrap() {
   app.useLogger(logger);
 
   app.setGlobalPrefix('api');
+  app.enableCors();
 
   await app.listen(3000);
 }

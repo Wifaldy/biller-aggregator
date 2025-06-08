@@ -1,3 +1,4 @@
+import { IPaginationRequest } from 'src/common/pagination.interface';
 import { UserEntity } from 'src/entity/user.entity';
 
 export interface IUserRegister
@@ -8,6 +9,16 @@ export interface IUserUpdate extends Partial<UserEntity> {}
 export interface IUserResponse
   extends Pick<UserEntity, 'username' | 'name' | 'id' | 'role'> {}
 
+export interface IUserResponseWithRole
+  extends Pick<UserEntity, 'username' | 'name' | 'id'> {
+  roleId: number;
+  roleName: string;
+}
+
+export interface IUserPaginationRequest extends IPaginationRequest {
+  name?: string;
+}
+
 export class UserDto {
   static toDto(props: UserEntity): IUserResponse {
     return {
@@ -17,12 +28,13 @@ export class UserDto {
     };
   }
 
-  static toDtoWithRole(props: UserEntity): IUserResponse {
+  static toDtoWithRole(props: UserEntity): IUserResponseWithRole {
     return {
       id: props.id,
       name: props.name,
       username: props.username,
-      role: props.role,
+      roleId: props.roleId,
+      roleName: props.role?.name,
     };
   }
 }

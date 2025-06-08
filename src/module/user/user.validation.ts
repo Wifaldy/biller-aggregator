@@ -15,4 +15,8 @@ export class UserValidation extends BaseValidation {
   }).extend({
     id: z.number(),
   });
+
+  static readonly PAGINATION = UserValidation.FIND_ALL_WITH_PAGINATION.extend({
+    name: z.string().trim().optional(),
+  });
 }
